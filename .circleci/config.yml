@@ -79,10 +79,6 @@ jobs:
           *d2-save-cache
       - run:
           *upload-coverage
-      - store_test_results:
-          *store-results
-      - store_artifacts:
-          *store-artifacts
 
 workflows:
   version: 2
