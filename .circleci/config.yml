@@ -37,31 +37,31 @@ default-run: &default-run
 jobs:
   python27:
     docker:
-      - image: circleci/python27
+      - image: circleci/python:2.7
     <<: *defaults
     <<: *default-run
 
   python35:
     docker:
-      - image: circleci/python35
+      - image: circleci/python:3.5
     <<: *defaults
     <<: *default-run
 
   python36:
     docker:
-      - image: circleci/python36
+      - image: circleci/python:3.6
     <<: *defaults
     <<: *default-run
 
   python37:
     docker:
-      - image: circleci/python37
+      - image: circleci/python:3.7
     <<: *defaults
     <<: *default-run
 
   python38:
     docker:
-      - image: circleci/python38
+      - image: circleci/python:3.8
     <<: *defaults
     <<: *default-run
 
