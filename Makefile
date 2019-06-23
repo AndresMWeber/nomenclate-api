@@ -13,8 +13,8 @@ install-deps: make-venv
 
 test-unit:
 	. ~/nvenv/bin/activate
-	mayapy -m nose2
-	mv nose2-junit.xml $(TEST_PATH)/noselog$(MAYA_VERSION).xml
+	python -m nose2
+	mv nose2-junit.xml $(TEST_PATH)/noselog$(PYTHON_VERSION).xml
 
 upload-coverage:
 	. ~/nvenv/bin/activate

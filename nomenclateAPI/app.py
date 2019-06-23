@@ -5,6 +5,8 @@ from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
 
+from nomenclate import Nom
+
 from resources.user import UserRegister, User
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
@@ -17,6 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SECRET_KEY'] = 'andres'
 api = Api(app=app)
+api.nomenclate = Nom()
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
