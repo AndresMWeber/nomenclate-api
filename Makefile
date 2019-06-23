@@ -1,37 +1,27 @@
 update-and-push:
-	sh ./scripts/update-and-push.sh version
+	sh ./update-and-push.sh version
 
 nvenv: make-venv
 
-nvenv3: make-venv3
-
 make-venv:
-	pip install virtualenv
-	python -m virtualenv ~/nvenv
-
-make-venv3:
-	python3 -m venv ~/nvenv
+	wget https://bootstrap.pypa.io/get-pip.py
+	python3.6 get-pip.py
+	pip3.6 install virtualenv
+	python3.6 -m virtualenv ~/nvenv --python=python3.6 --no-site-packages
 
 install-deps: make-venv
 	~/nvenv/bin/pip install -Ur requirements.txt
-	~/nvenv/bin/pip install coveralls nose2
-
-install-deps3: make-venv3
-	~/nvenv/bin/pip3 install -Ur requirements.txt
-	~/nvenv/bin/pip3 install coveralls nose2
+	~/nvenv/bin/pip install coverage nose codacy-coverage
 
 test-unit:
 	. ~/nvenv/bin/activate
-	~/nvenv/bin/python -m nose2 -c tests/.nose2rc --with-xunit --xunit-file=$(TEST_PATH)/nose2log$(PYTHON_VERSION).xml
-
-test-unit3:
-	. ~/nvenv/bin/activate
-	~/nvenv/bin/python3 -m nose2 -c tests/.nose2rc --with-xunit --xunit-file=$(TEST_PATH)/nose2log$(PYTHON_VERSION).xml
+	mayapy -m nose2
+	mv nose2-junit.xml $(TEST_PATH)/noselog$(MAYA_VERSION).xml
 
 upload-coverage:
 	. ~/nvenv/bin/activate
-	~/nvenv/bin/coveralls
-
+	~/nvenv/bin/coverage xml
+	~/nvenv/bin/python-codacy-coverage -r coverage.xml
 
 verify-git-tag: make-venv
 	. ~/nvenv/bin/activate

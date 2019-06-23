@@ -18,8 +18,8 @@ default-run: &default-run
             keys:
                 - a1-dependencies-{{ checksum "requirements.txt" }}
                 - a1-dependencies-
-        - run: &d-set-up-mayapy
-            name: set up mayapy and install deps
+        - run: &d-install-deps
+            name: install deps
             command: make install-deps
         - save-cache: &d2-save-cache
             paths:
@@ -71,6 +71,24 @@ jobs:
     <<: *defaults
     <<: *default-run
 
+  uploadcoverage:
+    docker:
+      - image: circleci/python:latest
+    <<: *defaults
+    steps:
+      - checkout
+      - restore-cache:
+          *d2-restore-cache
+      - run:
+          *d-install-deps
+      - save-cache:
+          *d2-save-cache
+      - run:
+          *upload-coverage
+      - store_test_results:
+          *store-results
+      - store_artifacts:
+          *store-artifacts
 
 workflows:
   version: 2
@@ -82,3 +100,11 @@ workflows:
       - python37
       - python38
       - pythonlatest
+      - uploadcoverage:
+          requires:
+            - python27
+            - python35
+            - python36
+            - python37
+            - python38
+            - pythonlatest
