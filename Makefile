@@ -5,9 +5,9 @@ nvenv: make-venv
 
 make-venv:
 	wget https://bootstrap.pypa.io/get-pip.py
-	python3.6 get-pip.py
-	pip3.6 install virtualenv
-	python3.6 -m virtualenv ~/nvenv --python=python3.6 --no-site-packages
+	python2.7 get-pip.py
+	pip2.7 install virtualenv
+	python2.7 -m virtualenv ~/nvenv --python=python2.7 --no-site-packages
 
 install-deps: make-venv
 	~/nvenv/bin/pip install -Ur requirements.txt
