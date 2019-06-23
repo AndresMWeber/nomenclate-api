@@ -13,7 +13,7 @@ install-deps: make-venv
 
 test-unit:
 	source ~/nvenv/bin/activate; \
-	python -m nose2; \
+	nose2; \
 	mv nose2-junit.xml $(TEST_PATH)/noselog$(PYTHON_VERSION).xml; \
 
 upload-coverage:
