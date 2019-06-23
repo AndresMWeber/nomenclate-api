@@ -59,12 +59,6 @@ jobs:
     <<: *defaults
     <<: *default-run
 
-  python38:
-    docker:
-      - image: circleci/python:3.8
-    <<: *defaults
-    <<: *default-run
-
   pythonlatest:
     docker:
       - image: circleci/python:latest
@@ -98,7 +92,6 @@ workflows:
       - python35
       - python36
       - python37
-      - python38
       - pythonlatest
       - uploadcoverage:
           requires:
