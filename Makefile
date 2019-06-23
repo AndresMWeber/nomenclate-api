@@ -12,9 +12,9 @@ install-deps: make-venv
 	~/nvenv/bin/pip install coverage nose codacy-coverage
 
 test-unit:
-	. ~/nvenv/bin/activate
-	python -m nose2
-	mv nose2-junit.xml $(TEST_PATH)/noselog$(PYTHON_VERSION).xml
+	source ~/nvenv/bin/activate; \
+	python -m nose2; \
+	mv nose2-junit.xml $(TEST_PATH)/noselog$(PYTHON_VERSION).xml; \
 
 upload-coverage:
 	. ~/nvenv/bin/activate
