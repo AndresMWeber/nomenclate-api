@@ -4,8 +4,8 @@ update-and-push:
 nvenv: make-venv
 
 make-venv:
-	pip2.7 install virtualenv
-	python2.7 -m virtualenv ~/nvenv --python=python2.7 --no-site-packages
+	pip install virtualenv
+	python -m virtualenv ~/nvenv --no-site-packages
 
 install-deps: make-venv
 	~/nvenv/bin/pip install -Ur requirements.txt
