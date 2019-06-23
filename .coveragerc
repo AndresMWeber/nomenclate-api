@@ -1,0 +1,9 @@
+# .coveragerc
+[report]
+show_missing = True
+
+[run]
+omit =
+    *__*__.py
+    src/nomenclateapi/version.py
+    src/nomenclateapi/core/errors.py

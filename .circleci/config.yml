@@ -1,0 +1,84 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+
+defaults: &defaults
+  working_directory: ~/nomenclateapi
+
+upload-coverage: &upload-coverage
+    name: upload coverage
+    command: make upload-coverage
+
+default-run: &default-run
+    steps:
+        - checkout
+        - restore-cache: &d2-restore-cache
+            keys:
+                - a1-dependencies-{{ checksum "requirements.txt" }}
+                - a1-dependencies-
+        - run: &d-set-up-mayapy
+            name: set up mayapy and install deps
+            command: make install-deps
+        - save-cache: &d2-save-cache
+            paths:
+              - ~/venv/
+            key: a1-dependencies-{{ checksum "requirements.txt" }}
+        - run: &run-tests
+            name: run tests
+            command: make test-unit
+        - store_test_results: &store-results
+            path: ~/test-results
+        - store_artifacts: &store-artifacts
+            path: ~/.nomenclateapi
+            destination: ~/test-results
+
+jobs:
+  python27:
+    docker:
+      - image: circleci/python27
+    <<: *defaults
+    <<: *default-run
+
+  python35:
+    docker:
+      - image: circleci/python35
+    <<: *defaults
+    <<: *default-run
+
+  python36:
+    docker:
+      - image: circleci/python36
+    <<: *defaults
+    <<: *default-run
+
+  python37:
+    docker:
+      - image: circleci/python37
+    <<: *defaults
+    <<: *default-run
+
+  python38:
+    docker:
+      - image: circleci/python38
+    <<: *defaults
+    <<: *default-run
+
+  pythonlatest:
+    docker:
+      - image: circleci/python:latest
+    <<: *defaults
+    <<: *default-run
+
+
+workflows:
+  version: 2
+  test_python_versions:
+    jobs:
+      - python27
+      - python35
+      - python36
+      - python37
+      - python38
+      - pythonlatest
