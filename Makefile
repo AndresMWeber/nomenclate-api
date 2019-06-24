@@ -20,6 +20,7 @@ test-unit:
 
 upload-coverage:
 	. ~/nvenv/bin/activate; \
+	cd /tmp/workspace/test-results
 	coverage xml; \
 	python-codacy-coverage -r coverage.xml; \
 

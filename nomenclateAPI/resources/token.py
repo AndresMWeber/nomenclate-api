@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.token import TokenModel
-
+from six import iteritems
 
 class Token(Resource):
     parser = reqparse.RequestParser()
@@ -36,7 +36,7 @@ class Token(Resource):
         token = TokenModel.find_by_name(name)
         if token:
             token.delete_from_db()
-        return {'message': 'token %s deleted' % name}
+        return {'message': 'Token "{}" deleted'.format(name)}
 
     def put(self, name):
         data = self.parser.parse_args()
@@ -54,7 +54,7 @@ class Token(Resource):
 
         return token.json()
 
-    def update(self, name):
+    def patch(self, name):
         data = self.parser.parse_args()
 
         token = TokenModel.find_by_name(name)
@@ -63,7 +63,9 @@ class Token(Resource):
             return {'message': 'Could not find {}(id={}}) in DB'.format(
                 self.__class__.__name__, name)}, 404
         else:
-            token.instance.merge_serialization(data)
+            for k, v in iteritems(data):
+                if hasattr(token, k):
+                    setattr(token, k, v)
 
         token.save_to_db()
 

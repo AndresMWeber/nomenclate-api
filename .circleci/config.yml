@@ -13,6 +13,8 @@ upload-coverage: &upload-coverage
 
 default-run: &default-run
     steps:
+        - attach_workspace:
+            at: /tmp/workspace
         - checkout
         - restore-cache: &d2-restore-cache
             keys:
@@ -34,7 +36,7 @@ default-run: &default-run
             path: ~/test-results
             destination: ~/test-results
         - persist_to_workspace: &cache-tests
-            root: ../
+            root: /tmp/workspace
             paths:
                   - test-results
             
@@ -74,6 +76,8 @@ jobs:
       - image: circleci/python:latest
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - checkout
       - restore-cache:
           *d2-restore-cache
