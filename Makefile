@@ -15,8 +15,8 @@ install-deps: make-venv
 test-unit:
 	. ~/nvenv/bin/activate; \
 	python -m nose2; \
-	mkdir ~/test-results
-	cp nose2-junit.xml ~/test-results/noselog$(PYTHON_VERSION).xml; \
+	mkdir /tmp/workspace/test-results
+	cp nose2-junit.xml /tmp/workspace/test-results/noselog$(PYTHON_VERSION).xml; \
 
 upload-coverage:
 	. ~/nvenv/bin/activate; \
