@@ -6,10 +6,10 @@ class Token(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('name', type=str)
     parser.add_argument('token', type=str)
-    parser.add_argument('label', type=str)
-    parser.add_argument('case', type=str)
-    parser.add_argument('prefix', type=str)
-    parser.add_argument('suffix', type=str)
+    parser.add_argument('label', type=str, default='')
+    parser.add_argument('case', type=str, default='')
+    parser.add_argument('prefix', type=str, default='')
+    parser.add_argument('suffix', type=str, default='')
     parser.add_argument('nomenclate_id', type=int, required=True, help="All tokens need a nomenclate ID")
 
     @classmethod
@@ -23,6 +23,8 @@ class Token(Resource):
         if TokenModel.find_by_name(name):
             return {'message': "A token instance with id '{}' already exists".format(name)}, 400
         data = self.parser.parse_args()
+        data['name'] = name
+        data['token'] = data.get('token', name)
         token = TokenModel(**data)
         try:
             token.save_to_db()
@@ -40,6 +42,8 @@ class Token(Resource):
         data = self.parser.parse_args()
 
         token = TokenModel.find_by_name(name)
+        data['name'] = name
+        data['token'] = data.get('token', name)
 
         if token is None:
             token = TokenModel(**data)

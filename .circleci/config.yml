@@ -33,11 +33,10 @@ default-run: &default-run
         - store_artifacts: &store-artifacts
             path: ~/test-results
             destination: ~/test-results
-        - save-cache: &cache-tests
+        - persist_to_workspace: &cache-tests
             paths:
-              - ~/test-results
-            key: nomenclate-api-{{ .Revision }}	
-
+              - ~/test-results/*.xml
+            
 jobs:
   python27:
     docker:
@@ -81,9 +80,6 @@ jobs:
           *d-install-deps
       - save-cache:
           *d2-save-cache
-      - restore-cache:
-          keys: 
-            - nomenclate-api-{{ .Revision }}	
       - run:
           *upload-coverage
 
