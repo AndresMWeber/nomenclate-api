@@ -36,7 +36,7 @@ default-run: &default-run
         - save-cache: &cache-tests
             paths:
               - ~/test-results
-            key: nomenclate-api-{{{ .Revision }}	
+            key: nomenclate-api-{{ .Revision }}	
 
 jobs:
   python27:
