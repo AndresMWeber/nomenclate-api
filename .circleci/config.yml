@@ -51,7 +51,7 @@ jobs:
           paths:
             - cc-test-reporter
             - test-results
-            - $PYTHON_VERSION
+            - ${PYTHON_VERSION}
 
   python27:
     docker:
