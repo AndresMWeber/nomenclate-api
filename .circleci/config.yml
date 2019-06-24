@@ -28,14 +28,17 @@ default-run: &default-run
             command: make test-unit
         - run:
             name: convert coverage
-            command: ~/tmp/cc-test-reporter format-coverage -t coverage.py -o ~/tmp/test-results/coverage.${PYTHON_VERSION}.json ~/tmp/test-results/coverage.${PYTHON_VERSION}.xml
+            command: |
+              cp nose2-junit.xml ~/tmp/test-results/noselog.${PYTHON_VERSION}.xml
+              cp coverage.xml ~/tmp/test-results/coverage.${PYTHON_VERSION}.xml
+              ~/tmp/cc-test-reporter format-coverage -t coverage.py -o ~/tmp/test-results/coverage.${PYTHON_VERSION}.json ~/tmp/test-results/coverage.${PYTHON_VERSION}.xml
         - store_test_results: &store-results
             path: ~/tmp/test-results
         - persist_to_workspace:
             root: ~/tmp
             paths: 
               - test-results/noselog.*.xml
-              - test-results/coverage.*.xml
+              - test-results/coverage.*.json
             
 jobs:
   build:
@@ -89,7 +92,7 @@ jobs:
       - run:
           name: Upload coverage results to Code Climate
           command: |
-            ~/tmp/cc-test-reporter sum-coverage ~/tmp/test-results/.coverage.*.json -p 4 -o ~/tmp/codeclimate.json
+            ~/tmp/cc-test-reporter sum-coverage ~/tmp/test-results/coverage.*.json -p 4 -o ~/tmp/codeclimate.json
             ~/tmp/cc-test-reporter upload-coverage -i ~/tmp/codeclimate.json
 
 workflows:
