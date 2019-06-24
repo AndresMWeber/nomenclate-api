@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class DBContext(object):
     """
     Simple CM for sqlite3 databases. Commits everything at exit.
@@ -26,8 +27,8 @@ class DBContext(object):
 
 def db_init():
     with DBContext() as c:
-        create_table = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username text, password text)"
+        create_table = "CREATE TABLE IF NOT EXISTS nomenclates (id INTEGER PRIMARY KEY, format text)"
         c.execute(create_table)
 
-        create_table = "CREATE TABLE IF NOT EXISTS items (name text, price real)"
+        create_table = "CREATE TABLE IF NOT EXISTS tokens (id INTEGER PRIMARY KEY, name text)"
         c.execute(create_table)
