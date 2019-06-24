@@ -33,6 +33,10 @@ default-run: &default-run
         - store_artifacts: &store-artifacts
             path: ~/test-results
             destination: ~/test-results
+        - save-cache: &cache-tests
+            paths:
+              - ~/test-results
+            key: nomenclate-api-{{ epoch }}
 
 jobs:
   python27:
@@ -77,6 +81,8 @@ jobs:
           *d-install-deps
       - save-cache:
           *d2-save-cache
+      - restore-cache:
+          keys: nomenclate-api-{{ epoch }}
       - run:
           *upload-coverage
 

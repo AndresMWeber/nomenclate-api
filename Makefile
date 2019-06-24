@@ -16,7 +16,7 @@ test-unit:
 	. ~/nvenv/bin/activate; \
 	python -m nose2; \
 	mkdir ~/test-results
-	mv nose2-junit.xml ~/test-results/noselog$(PYTHON_VERSION).xml; \
+	cp nose2-junit.xml ~/test-results/noselog$(PYTHON_VERSION).xml; \
 
 upload-coverage:
 	. ~/nvenv/bin/activate; \
