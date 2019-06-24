@@ -73,8 +73,6 @@ jobs:
       - image: circleci/python:latest
     <<: *defaults
     steps:
-      - attach_workspace:
-        *attach-workspace
       - checkout
       - restore-cache:
         *d2-restore-cache
@@ -82,6 +80,8 @@ jobs:
         *d-install-deps
       - save-cache:
         *d2-save-cache
+      - attach_workspace:
+        *attach-workspace
       - run:
         *upload-coverage
 
