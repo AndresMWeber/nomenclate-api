@@ -8,8 +8,8 @@
 <div align="center">
   <a href="https://readthedocs.org/projects/nomenclate/badge/?version=latest"><img src="http://nomenclate.readthedocs.io/en/latest/?badge=latest" alt="Documentation" /></a>
   <a href="https://badge.fury.io/py/nomenclate"><img src="https://badge.fury.io/py/nomenclate.svg" alt="Build Status" /></a>
-  <a href="https://circleci.com/gh/AndresMWeber/Nomenclate"><img src="https://circleci.com/gh/AndresMWeber/Nomenclate.svg?style=svg" alt="CircleCI Status" /></a>
-  <a href="https://coveralls.io/github/AndresMWeber/Nomenclate?branch=master"><img src="https://coveralls.io/repos/github/AndresMWeber/Nomenclate/badge.svg?branch=master" alt="Code Health" /></a>
+  <a href="https://circleci.com/gh/AndresMWeber/nomenclate-api"><img src="https://circleci.com/gh/AndresMWeber/nomenclate-api.svg?style=svg" alt="CircleCI Status" /></a>
+  <a href="https://coveralls.io/github/AndresMWeber/Nomenclate-api?branch=master"><img src="https://coveralls.io/repos/github/AndresMWeber/Nomenclate-api/badge.svg?branch=master" alt="Code Health" /></a>
   <a href="https://codeclimate.com/github/AndresMWeber/nomenclate-api/maintainability"><img src="https://api.codeclimate.com/v1/badges/5b32dc30dd27bdf8343e/maintainability" /></a>
   <a href="https://codeclimate.com/github/AndresMWeber/nomenclate-api/test_coverage"><img src="https://api.codeclimate.com/v1/badges/5b32dc30dd27bdf8343e/test_coverage" /></a>
   <a href="https://pypi.python.org/pypi/nomenclate"><img src="https://img.shields.io/pypi/pyversions/nomenclate.svg" alt="PyPI Version" /></a>
