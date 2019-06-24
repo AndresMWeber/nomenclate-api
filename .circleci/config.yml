@@ -10,14 +10,14 @@ defaults: &defaults
 upload-coverage: &upload-coverage
   name: Upload coverage results to Code Climate
   command: |
-    ./tmp/cc-test-reporter sum-coverage tmp/*.xml -p 2 -o tmp/codeclimate.total.xml
-    ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.xml
+    ./tmp/cc-test-reporter sum-coverage ~/tmp/*.xml -p 2 -o tmp/codeclimate.total.xml
+    ./tmp/cc-test-reporter upload-coverage -i ~/tmp/codeclimate.total.xml
 
 default-run: &default-run
     steps:
         - checkout
         - attach_workspace:
-            at: ~/repo/tmp
+            at: ~/tmp
         - restore-cache: &d2-restore-cache
             keys:
                 - a1-dependencies-{{ checksum "requirements.txt" }}
@@ -35,9 +35,9 @@ default-run: &default-run
         - store_test_results: &store-results
             path: ~/test-results
         - persist_to_workspace:
-            root: tmp
+            root: ~/tmp
             paths: 
-              - test-results/*.xml
+              - ~/test-results/*.xml
             
 jobs:
   build:
@@ -48,11 +48,11 @@ jobs:
       - run:
           name:  Download cc-test-reporter
           command: |
-            mkdir -p tmp/
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
-            chmod +x ./tmp/cc-test-reporter
+            mkdir -p ~/tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/tmp/cc-test-reporter
+            chmod +x ~/tmp/cc-test-reporter
       - persist_to_workspace:
-          root: tmp
+          root: ~/tmp
           paths:
             - cc-test-reporter
   python27:
