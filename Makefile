@@ -15,7 +15,7 @@ install-deps: make-venv
 test-unit:
 	. ~/nvenv/bin/activate; \
 	python -m nose2; \
-	mkdir ~/test-results
+	mkdir ~/test-results; \
 	cp nose2-junit.xml ~/test-results/noselog$(PYTHON_VERSION).xml; \
 
 verify-git-tag: make-venv
@@ -30,8 +30,3 @@ dist:
 upload-to-pypi:
 	. ~/nvenv/bin/activate; \
 	twine upload dist/*; \
-
-upload-coverage-codacy:
-	. ~/nvenv/bin/activate; \
-	coverage xml; \
-	python-codacy-coverage -r coverage.xml; \
