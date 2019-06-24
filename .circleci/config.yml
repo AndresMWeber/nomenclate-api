@@ -31,7 +31,7 @@ default-run: &default-run
         - persist_to_workspace:
             root: ~/tmp
             paths: 
-              - test-results/*.xml
+              - test-results
             
 jobs:
   build:
@@ -43,13 +43,13 @@ jobs:
           name:  Download cc-test-reporter
           command: |
             mkdir -p tmp/test-results
-            mkdir tmp/coverage
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
             chmod +x ./tmp/cc-test-reporter
       - persist_to_workspace:
           root: tmp
           paths:
             - cc-test-reporter
+            - test-results
   python27:
     docker:
       - image: circleci/python:2.7
