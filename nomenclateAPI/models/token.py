@@ -14,7 +14,7 @@ class TokenModel(CommonMixin, db.Model):
                     'case',
                     'prefix',
                     'suffix',
-                    'nomenclates']
+                    'nomenclate_id']
 
     name = db.Column(db.String(20))
     token = db.Column(db.String(20))
@@ -22,4 +22,4 @@ class TokenModel(CommonMixin, db.Model):
     case = db.Column(db.String(10))
     prefix = db.Column(db.String(20))
     suffix = db.Column(db.String(20))
-    nomenclate_id = db.Column(db.Integer, db.ForeignKey('NomenclateModel.id'))
+    nomenclate_id = db.Column(db.Integer, db.ForeignKey('nomenclates.id'))

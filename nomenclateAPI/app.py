@@ -23,29 +23,31 @@ pusher_client = pusher.Pusher(
 )
 
 app.nomenclate = Nom()
+print(app.nomenclate)
 
 @app.route('/render/<int:_id>')
 def render_nomenclate(_id):
     nomenclate = NomenclateModel.find_by_id(_id)
-    nomenclate_json = nomenclate.json()
     
-    app.nomenclate.format = nomenclate_json.get('format', app.nomenclate.format)
-
-    tokens = nomenclate_json.pop('tokens')
+    app.nomenclate.format = nomenclate.format or app.nomenclate.format
+    cur_state = app.nomenclate.state
+    print(repr(app.nomenclate))
+    print(app.nomenclate.format)
+    print(app.nomenclate.tokens)
+    print(app.nomenclate.state)
     
-    for k, v in iteritems(app.nomenclate.state):
-        token = TokenModel.find_by_kwargs(id=nomenclate.id, name=k)
-        if token is None:
-            #token = TokenModel(**{k: v, 'nomenclate_id': nomenclate.id})
-            pass
-        token.save_to_db()
+    for token in TokenModel.find_all_by_id(nomenclate.id):
+        print(token.json())
+        if cur_state.get(token.name) and hasattr(app.nomenclate, token.name):
+            nomenclate_token = getattr(app.nomenclate, token.name)
+            for k, v in iteritems(token.json()):
+                if hasattr(nomenclate_token, k) and not k == 'name':
+                    setattr(nomenclate_token, k, v or "")
     
-    for token in tokens:
-        nom_token = getattr(app.nomenclate, token.pop('name'))
-        for k, v in iteritems(token):
-            if hasattr(nom_token, k):
-                setattr(nom_token, k, v)
-    
+    print(repr(app.nomenclate))
+    print(app.nomenclate.format)
+    print(app.nomenclate.tokens)
+    print(app.nomenclate.state)
     return app.nomenclate.get()
 
 

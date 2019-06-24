@@ -9,6 +9,10 @@ class CommonMixin(object):
         return {attr: getattr(self, attr) for attr in self.serial_attrs}
 
     @classmethod
+    def find_all_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).all()
+
+    @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
 
