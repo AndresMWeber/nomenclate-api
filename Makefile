@@ -10,7 +10,7 @@ make-venv:
 install-deps: make-venv
 	. ~/nvenv/bin/activate; \
 	pip install -Ur requirements.txt; \
-	pip install coverage nose codacy-coverage; \
+	pip install coverage nose2 codacy-coverage; \
 
 test-unit:
 	. ~/nvenv/bin/activate; \

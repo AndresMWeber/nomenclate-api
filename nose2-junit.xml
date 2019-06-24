@@ -1,0 +1,11 @@
+<testsuite errors="0" failures="0" name="nose2-junit" skipped="0" tests="3" time="0.001">
+  <testcase classname="test_colors.TestControlAsHSV" name="test_red" time="0.000000">
+    <system-out />
+  </testcase>
+  <testcase classname="test_colors.TestControlAsHSV360" name="test_red" time="0.000000">
+    <system-out />
+  </testcase>
+  <testcase classname="test_colors.TestControlAsRGBNormalized" name="test_red" time="0.000000">
+    <system-out />
+  </testcase>
+</testsuite>
