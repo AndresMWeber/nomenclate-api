@@ -18,7 +18,7 @@ test-unit:
 	mkdir ~/test-results
 	cp nose2-junit.xml ~/test-results/noselog$(PYTHON_VERSION).xml; \
 
-upload-coverage:
+upload-coverage-codacy:
 	. ~/nvenv/bin/activate; \
 	coverage xml; \
 	python-codacy-coverage -r coverage.xml; \
