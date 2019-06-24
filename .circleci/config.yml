@@ -13,7 +13,7 @@ upload-coverage: &upload-coverage
 
 default-run: &default-run
     steps:
-        - attach_workspace:
+        - attach_workspace: &attach-workspace
             at: /tmp/workspace
         - checkout
         - restore-cache: &d2-restore-cache
@@ -38,7 +38,7 @@ default-run: &default-run
         - persist_to_workspace: &cache-tests
             root: /tmp/workspace
             paths:
-                  - test-results
+                  - /tmp/workspace/test-results
             
 jobs:
   python27:
@@ -77,16 +77,16 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+        <<: *attach-workspace
       - checkout
       - restore-cache:
-          *d2-restore-cache
+        <<: *d2-restore-cache
       - run:
-          *d-install-deps
+        <<: *d-install-deps
       - save-cache:
-          *d2-save-cache
+        <<: *d2-save-cache
       - run:
-          *upload-coverage
+        <<: *upload-coverage
 
 workflows:
   version: 2
