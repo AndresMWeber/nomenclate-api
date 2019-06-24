@@ -31,8 +31,8 @@ default-run: &default-run
         - persist_to_workspace:
             root: ~/tmp
             paths: 
-              - tmp/test-results/*.xml
-              - tmp/test-results/.coverage*
+              - test-results/noselog$PYTHON_VERSION.xml
+              - test-results/.coverage$PYTHON_VERSION
             
 jobs:
   build:
