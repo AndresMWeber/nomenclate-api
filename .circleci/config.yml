@@ -27,11 +27,12 @@ default-run: &default-run
             name: run tests
             command: make test-unit
         - store_test_results: &store-results
-            path: ~/test-results
+            path: ~/tmp/test-results
         - persist_to_workspace:
             root: ~/tmp
             paths: 
-              - test-results
+              - tmp/test-results/*.xml
+              - tmp/test-results/.coverage*
             
 jobs:
   build:
