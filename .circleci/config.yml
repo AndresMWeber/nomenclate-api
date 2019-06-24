@@ -43,7 +43,7 @@ jobs:
       - run:
           name:  Download cc-test-reporter
           command: |
-            mkdir -p ~/tmp/{test-results, $PYTHON_VERSION}
+            mkdir -p ~/tmp/{test-results,${PYTHON_VERSION}}
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/tmp/cc-test-reporter
             chmod +x ~/tmp/cc-test-reporter
       - persist_to_workspace:
@@ -52,6 +52,7 @@ jobs:
             - cc-test-reporter
             - test-results
             - $PYTHON_VERSION
+
   python27:
     docker:
       - image: circleci/python:2.7
@@ -92,8 +93,8 @@ jobs:
       - run:
           name: Upload coverage results to Code Climate
           command: |
-            ./tmp/cc-test-reporter sum-coverage tmp/*.xml -p 2 -o tmp/codeclimate.total.xml
-            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.xml
+            ~/tmp/cc-test-reporter sum-coverage ~/tmp/*.xml -p 2 -o ~/tmp/codeclimate.total.xml
+            ~/tmp/cc-test-reporter upload-coverage -i ~/tmp/codeclimate.total.xml
 
 workflows:
   version: 2
