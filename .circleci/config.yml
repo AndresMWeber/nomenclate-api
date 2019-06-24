@@ -28,7 +28,7 @@ default-run: &default-run
             command: make test-unit
         - run:
             name: convert coverage
-            command: ~/tmp/cc-test-reporter format-coverage -t coverage.py -o ~/tmp/test-results/.coverage.${PYTHON_VERSION}.json ~/tmp/test-results/.coverage${PYTHON_VERSION}
+            command: ~/tmp/cc-test-reporter format-coverage -t coverage.py -o ~/tmp/test-results/.coverage.${PYTHON_VERSION}.json ~/tmp/test-results/
         - store_test_results: &store-results
             path: ~/tmp/test-results
         - persist_to_workspace:
