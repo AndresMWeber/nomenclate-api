@@ -74,16 +74,16 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-        <<: *attach-workspace
+        *attach-workspace
       - checkout
       - restore-cache:
-        <<: *d2-restore-cache
+        *d2-restore-cache
       - run:
-        <<: *d-install-deps
+        *d-install-deps
       - save-cache:
-        <<: *d2-save-cache
+        *d2-save-cache
       - run:
-        <<: *upload-coverage
+        *upload-coverage
 
 workflows:
   version: 2
