@@ -29,7 +29,7 @@ default-run: &default-run
             name: run tests
             command: make test-unit
         - store_test_results: &store-results
-            path: ~/test-results/nose2
+            path: ~/test-results
             
 jobs:
   python27:
