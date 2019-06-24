@@ -1,10 +1,12 @@
+from six import iteritems
 from flask_restful import Resource, reqparse
 from models.nomenclate import NomenclateModel
+from models.token import TokenModel
 
 
 class Nomenclate(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('format', type=str)
+    parser.add_argument('format', type=str, required=True, help="Must specify a format string for the Nomenclate object.")
     
     @classmethod
     def get(cls, _id):
@@ -17,47 +19,38 @@ class Nomenclate(Resource):
         if NomenclateModel.find_by_id(_id):
             return {'message': "A nomenclate instance with id '{}' already exists".format(_id)}, 400
         data = self.parser.parse_args()
-        Nomenclate = NomenclateModel(**data)
+        nomenclate = NomenclateModel(**data)
+
         try:
-            Nomenclate.save_to_db()
+            nomenclate.save_to_db()
         except:
             return {'message': "An error occurred inserting the Nomenclate {}.".format(_id)}, 500
-        return Nomenclate.json(), 201
+        
+        return nomenclate.json(), 201
 
     def delete(self, _id):
         Nomenclate = NomenclateModel.find_by_id(_id)
         if Nomenclate:
             Nomenclate.delete_from_db()
-        return {'message': 'Nomenclate %s deleted' % _id}
+            return {'message': 'Nomenclate %s deleted' % _id}
+        return {'message': 'Nomenclate %s does not exist' % _id}
 
-    def put(self, _id):
+    def patch(self, _id, **kwargs):
         data = self.parser.parse_args()
 
-        Nomenclate = NomenclateModel.find_by_id(_id)
+        nomenclate = NomenclateModel.find_by_id(_id)
 
-        if Nomenclate is None:
-            Nomenclate = NomenclateModel(**data)
-        else:
-            Nomenclate.instance.merge_serialization(data)
-
-        Nomenclate.save_to_db()
-
-        return Nomenclate.json()
-
-    def update(self, _id):
-        data = self.parser.parse_args()
-
-        Nomenclate = NomenclateModel.find_by_id(_id)
-
-        if Nomenclate is None:
+        if nomenclate is None:
             return {'message': 'Could not find {}(id={}}) in DB'.format(
                 self.__class__.__name__, _id)}, 404
         else:
-            Nomenclate.instance.merge_serialization(data)
+            for k, v in iteritems(data):
+                if hasattr(nomenclate, k):
+                    setattr(nomenclate, k, v)
 
-        Nomenclate.save_to_db()
+        nomenclate.save_to_db()
 
-        return Nomenclate.json()
+        return nomenclate.json()
 
 
 class NomenclateList(Resource):

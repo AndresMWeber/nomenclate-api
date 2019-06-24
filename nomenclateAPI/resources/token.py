@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.token import TokenModel
+from models.nomenclate import NomenclateModel
 from six import iteritems
 
 class Token(Resource):
@@ -22,9 +23,14 @@ class Token(Resource):
     def post(self, name):
         if TokenModel.find_by_name(name):
             return {'message': "A token instance with id '{}' already exists".format(name)}, 400
+        
         data = self.parser.parse_args()
         data['name'] = name
         data['token'] = data.get('token', name)
+
+        if NomenclateModel.find_by_id(data['nomenclate_id']) is None:
+            return {'message': "No Nomenclate object exists at id: %s" % data['nomenclate_id']}
+
         token = TokenModel(**data)
         try:
             token.save_to_db()
@@ -40,10 +46,10 @@ class Token(Resource):
 
     def put(self, name):
         data = self.parser.parse_args()
-
-        token = TokenModel.find_by_name(name)
         data['name'] = name
         data['token'] = data.get('token', name)
+
+        token = TokenModel.find_by_name(name)
 
         if token is None:
             token = TokenModel(**data)
@@ -56,11 +62,13 @@ class Token(Resource):
 
     def patch(self, name):
         data = self.parser.parse_args()
+        data['name'] = name
+        data['token'] = data.get('token', name)
 
         token = TokenModel.find_by_name(name)
 
         if token is None:
-            return {'message': 'Could not find {}(id={}}) in DB'.format(
+            return {'message': 'Could not find {}(name={}) in DB'.format(
                 self.__class__.__name__, name)}, 404
         else:
             for k, v in iteritems(data):
