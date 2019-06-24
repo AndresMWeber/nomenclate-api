@@ -15,8 +15,9 @@ install-deps: make-venv
 test-unit:
 	. ~/nvenv/bin/activate; \
 	python -m nose2; \
+	coverage xml; \
 	cp nose2-junit.xml ~/tmp/test-results/noselog.$(PYTHON_VERSION).xml; \
-	cp .coverage ~/tmp/test-results/.coverage.$(PYTHON_VERSION); \
+	cp coverage.xml ~/tmp/test-results/coverage.$(PYTHON_VERSION).xml; \
 
 verify-git-tag: make-venv
 	. ~/nvenv/bin/activate; \
