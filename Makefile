@@ -16,7 +16,7 @@ test-unit:
 	. ~/nvenv/bin/activate; \
 	python -m nose2; \
 	cp nose2-junit.xml ~/tmp/test-results/noselog.$(PYTHON_VERSION).xml; \
-	cp .coverage ~/tmp/test-results/.coverage$(PYTHON_VERSION); \
+	cp .coverage ~/tmp/test-results/.coverage.$(PYTHON_VERSION); \
 
 verify-git-tag: make-venv
 	. ~/nvenv/bin/activate; \
