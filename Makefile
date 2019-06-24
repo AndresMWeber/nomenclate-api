@@ -18,11 +18,6 @@ test-unit:
 	mkdir ~/test-results
 	cp nose2-junit.xml ~/test-results/noselog$(PYTHON_VERSION).xml; \
 
-upload-coverage-codacy:
-	. ~/nvenv/bin/activate; \
-	coverage xml; \
-	python-codacy-coverage -r coverage.xml; \
-
 verify-git-tag: make-venv
 	. ~/nvenv/bin/activate; \
 	~/nvenv/bin/python setup.py verify; \
@@ -35,3 +30,8 @@ dist:
 upload-to-pypi:
 	. ~/nvenv/bin/activate; \
 	twine upload dist/*; \
+
+upload-coverage-codacy:
+	. ~/nvenv/bin/activate; \
+	coverage xml; \
+	python-codacy-coverage -r coverage.xml; \
