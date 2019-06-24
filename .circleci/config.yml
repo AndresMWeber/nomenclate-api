@@ -86,7 +86,7 @@ jobs:
       - run:
           name: Upload coverage results to Code Climate
           command: |
-            ~/tmp/cc-test-reporter sum-coverage ~/tmp/*.xml -p 4 -o ~/tmp/codeclimate.total.xml
+            ~/tmp/cc-test-reporter sum-coverage ~/tmp/test-results/*.xml -p 4 -o ~/tmp/codeclimate.total.xml
             ~/tmp/cc-test-reporter upload-coverage -i ~/tmp/codeclimate.total.xml
 
 workflows:
