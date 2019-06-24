@@ -31,10 +31,10 @@ default-run: &default-run
             name: run tests
             command: make test-unit
         - store_test_results: &store-results
-            path: ~/test-results
+            path: /tmp/workspace/test-results/
         - store_artifacts: &store-artifacts
-            path: ~/test-results
-            destination: ~/test-results
+            path: /tmp/workspace/test-results
+            destination: /tmp/workspace/test-results
         - persist_to_workspace: &cache-tests
             root: /tmp/workspace
             paths:
