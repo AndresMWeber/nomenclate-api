@@ -35,9 +35,9 @@ default-run: &default-run
         - store_test_results: &store-results
             path: ~/test-results
         - persist_to_workspace:
-          root: tmp
-          paths: 
-            - test-results/*.xml
+            root: tmp
+            paths: 
+              - test-results/*.xml
             
 jobs:
   build:
