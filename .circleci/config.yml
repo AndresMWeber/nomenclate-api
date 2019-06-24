@@ -82,7 +82,8 @@ jobs:
       - save-cache:
           *d2-save-cache
       - restore-cache:
-          keys: nomenclate-api-{{ epoch }}
+          keys: 
+            - nomenclate-api-{{ epoch }}
       - run:
           *upload-coverage
 
