@@ -85,6 +85,8 @@ jobs:
       - image: circleci/python:latest
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/tmp
       - run:
           name: Upload coverage results to Code Climate
           command: |
