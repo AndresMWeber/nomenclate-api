@@ -13,8 +13,6 @@ upload-coverage: &upload-coverage
 
 default-run: &default-run
     steps:
-        - attach_workspace: &attach-workspace
-            at: ~/test-results
         - checkout
         - restore-cache: &d2-restore-cache
             keys:
@@ -32,10 +30,6 @@ default-run: &default-run
             command: make test-unit
         - store_test_results: &store-results
             path: ~/test-results/nose2
-        - persist_to_workspace: &cache-tests
-            root: ~/test-results
-            paths:
-                  - nose2
             
 jobs:
   python27:
@@ -75,15 +69,13 @@ jobs:
     steps:
       - checkout
       - restore-cache:
-        *d2-restore-cache
+          *d2-restore-cache
       - run:
-        *d-install-deps
+          *d-install-deps
       - save-cache:
-        *d2-save-cache
-      - attach_workspace:
-        *attach-workspace
+          *d2-save-cache
       - run:
-        *upload-coverage
+          *upload-coverage
 
 workflows:
   version: 2
