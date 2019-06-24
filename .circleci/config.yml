@@ -36,7 +36,7 @@ default-run: &default-run
         - save-cache: &cache-tests
             paths:
               - ~/test-results
-            key: nomenclate-api-{{ epoch }}
+            key: nomenclate-api-{{ .BuildNum }}
 
 jobs:
   python27:
@@ -83,7 +83,7 @@ jobs:
           *d2-save-cache
       - restore-cache:
           keys: 
-            - nomenclate-api-{{ epoch }}
+            - nomenclate-api-{{ .BuildNum }}
       - run:
           *upload-coverage
 
