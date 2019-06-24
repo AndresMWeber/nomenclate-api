@@ -31,8 +31,8 @@ default-run: &default-run
         - persist_to_workspace:
             root: ~/tmp
             paths: 
-              - test-results/noselog$PYTHON_VERSION.xml
-              - test-results/.coverage$PYTHON_VERSION
+              - test-results/noselog.*.xml
+              - test-results/.coverage*
             
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
       - run:
           name:  Download cc-test-reporter
           command: |
-            mkdir -p ~/tmp/{test-results,${PYTHON_VERSION}}
+            mkdir -p ~/tmp/test-results
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/tmp/cc-test-reporter
             chmod +x ~/tmp/cc-test-reporter
       - persist_to_workspace:
@@ -51,7 +51,6 @@ jobs:
           paths:
             - cc-test-reporter
             - test-results
-            - ${PYTHON_VERSION}
 
   python27:
     docker:
