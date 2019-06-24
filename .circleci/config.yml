@@ -35,7 +35,7 @@ default-run: &default-run
             destination: ~/test-results
         - persist_to_workspace: &cache-tests
             paths:
-              - ~/test-results/*.xml
+              - test-results/*.xml
             
 jobs:
   python27:
