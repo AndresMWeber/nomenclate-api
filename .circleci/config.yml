@@ -76,6 +76,7 @@ jobs:
           *d2-save-cache
       - run:
           *run-tests
+      - run:
           *upload-coverage
 
 workflows:
