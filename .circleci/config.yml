@@ -84,11 +84,11 @@ jobs:
       - image: circleci/python:latest
     <<: *defaults
     steps:
-      run:
-        name: Upload coverage results to Code Climate
-        command: |
-          ./tmp/cc-test-reporter sum-coverage tmp/*.xml -p 2 -o tmp/codeclimate.total.xml
-          ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.xml
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            ./tmp/cc-test-reporter sum-coverage tmp/*.xml -p 2 -o tmp/codeclimate.total.xml
+            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.xml
 
 workflows:
   version: 2
