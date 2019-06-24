@@ -15,12 +15,11 @@ install-deps: make-venv
 test-unit:
 	. ~/nvenv/bin/activate; \
 	python -m nose2; \
-	mkdir /tmp/workspace/test-results/$(PYTHON_VERSION)
-	cp nose2-junit.xml /tmp/workspace/test-results/$(PYTHON_VERSION)/noselog$(PYTHON_VERSION).xml; \
+	mkdir ~/test-results/nose2
+	cp nose2-junit.xml ~/test-results/nose2/noselog$(PYTHON_VERSION).xml; \
 
 upload-coverage:
 	. ~/nvenv/bin/activate; \
-	cd /tmp/workspace/test-results
 	coverage xml; \
 	python-codacy-coverage -r coverage.xml; \
 
